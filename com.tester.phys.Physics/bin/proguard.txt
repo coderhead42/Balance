@@ -1,0 +1,18 @@
+# view AndroidManifest.xml #generated:42
+-keep class com.tester.phys.DeviceListActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:12
+-keep class com.tester.phys.MainActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:21
+-keep class com.tester.phys.Physics { <init>(...); }
+
+# view AndroidManifest.xml #generated:28
+-keep class com.tester.phys.PhysicsM { <init>(...); }
+
+# view AndroidManifest.xml #generated:35
+-keep class com.tester.phys.PhysicsMult_BT { <init>(...); }
+
+# view res/layout/main.xml #generated:11
+-keep class com.tester.phys.PhysicsView { <init>(...); }
+

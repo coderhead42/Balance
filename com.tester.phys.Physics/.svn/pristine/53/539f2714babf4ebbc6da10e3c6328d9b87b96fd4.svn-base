@@ -1,0 +1,131 @@
+package com.tester.phys;
+
+import org.jbox2d.common.Vec2;
+import android.content.Context;
+import android.graphics.Canvas;
+import android.view.View;
+
+public class PhysicsView extends View {
+
+	public PhysicsWorld mWorld;
+	protected float W, H;
+	
+
+	public PhysicsView(Context context) {
+		super(context);
+		mWorld = new PhysicsWorld(W, H);
+	}
+
+	
+	
+	@Override
+	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+		// TODO Auto-generated method stub
+		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+	}
+
+	public void shiftCamera(float add) {
+		mWorld.cam.y = mWorld.cam.y + add;	
+	}
+
+	public void drawBlock(float f, float g) {
+		mWorld.ghostBlock[0] = (int) (f - mWorld.length / 2);
+		mWorld.ghostBlock[1] = (int) (g - mWorld.width / 2);
+		mWorld.ghostBlock[2] = (int) (f + mWorld.length / 2);
+		mWorld.ghostBlock[3] = (int) (g + mWorld.width / 2);
+		mWorld.blockDraw = true;
+	}
+
+	public void update() {
+
+		mWorld.world.step(mWorld.timeStep, mWorld.iterations);
+		postInvalidate();
+	}
+
+	protected void onDraw(Canvas canvas) {
+
+		// get position of fulcrum points.
+		Vec2 p = mWorld.groundBody.getWorldLocation(new Vec2(0.0f, 45.0f));
+		p = p.sub(mWorld.cam);
+		Vec2 q = mWorld.groundBody.getWorldLocation(new Vec2(-40.0f, 0.0f));
+		q = q.sub(mWorld.cam);
+		Vec2 r = mWorld.groundBody.getWorldLocation(new Vec2(40.0f, 0.0f));
+		r = r.sub(mWorld.cam);
+
+		// draw the lines they create.
+		canvas.drawLine(p.x, mWorld.World_H - p.y, q.x, mWorld.World_H - q.y,
+				mWorld.paintone);
+		canvas.drawLine(q.x, mWorld.World_H - q.y, r.x, mWorld.World_H - r.y,
+				mWorld.paintone);
+		canvas.drawLine(r.x, mWorld.World_H - r.y, p.x, mWorld.World_H - p.y,
+				mWorld.paintone);
+
+		// draw block being positioned by user right now.
+
+		if (mWorld.blockDraw == true) {
+			canvas.drawRect(mWorld.ghostBlock[0], mWorld.World_H
+					- mWorld.ghostBlock[1], mWorld.ghostBlock[2],
+					mWorld.World_H - mWorld.ghostBlock[3], mWorld.painttwo);
+			// canvas.drawPoint(ghostBlock[0], ghostBlock[1], paintone);
+			// canvas.drawPoint(ghostBlock[2], ghostBlock[3], paintone);
+		}
+
+		canvas.drawText(Float.toString(mWorld.World_H - mWorld.width) + " "
+				+ Float.toString(mWorld.cam.y), 0, mWorld.World_H / 2,
+				mWorld.painttwo);
+
+		// bodies[] is the array that stores all the blocks placed so far.
+		// this is a loop getting each of their positions and drawing them.
+		for (int j = 0; j < mWorld.count; j++) {
+
+			// gets position of the body (point/sprite).
+			Vec2 m = mWorld.bodies[j].getPosition();
+
+			// camera shift
+			m = m.sub(mWorld.cam);
+
+			if (m.y > mWorld.World_H - mWorld.width) {
+				shiftCamera(mWorld.width);
+			}
+
+			// draws the point.
+			canvas.drawText(Float.toString(m.x) + " " + Float.toString(m.y),
+					m.x, mWorld.World_H - m.y, mWorld.painttwo);
+
+			// gets position of the block corners.
+			// if you've changed the body shapes, change these.
+			// eg. delete the string ' - j*10' from each line to draw correctly
+			// if the provided alternative line has been used.
+			Vec2 a = mWorld.bodies[j].getWorldLocation(new Vec2(
+					(mWorld.length) / 2, (mWorld.width) / 2));
+			a = a.sub(mWorld.cam);
+			Vec2 b = mWorld.bodies[j].getWorldLocation(new Vec2(
+					-(mWorld.length) / 2, (mWorld.width) / 2));
+			b = b.sub(mWorld.cam);
+			Vec2 c = mWorld.bodies[j].getWorldLocation(new Vec2(
+					-(mWorld.length) / 2, -(mWorld.width) / 2));
+			c = c.sub(mWorld.cam);
+			Vec2 d = mWorld.bodies[j].getWorldLocation(new Vec2(
+					(mWorld.length) / 2, -(mWorld.width) / 2));
+			d = d.sub(mWorld.cam);
+			// draws lines to make block edges based on the points fetched.
+			// rounding floats to ints (pixels) is faulty, so rendering has
+			// issues.
+			// the bottommost bodies intersect, and the topmost ones seem to
+			// 'float' on top of the body.
+			// let it be for now, we'll work out how to fix it later.
+			// nextBlock.draw(canvas);
+			canvas.drawLine(a.x, mWorld.World_H - a.y, b.x, mWorld.World_H
+					- b.y, mWorld.paintone);
+			canvas.drawLine(b.x, mWorld.World_H - b.y, c.x, mWorld.World_H
+					- c.y, mWorld.paintone);
+			canvas.drawLine(c.x, mWorld.World_H - c.y, d.x, mWorld.World_H
+					- d.y, mWorld.paintone);
+			canvas.drawLine(d.x, mWorld.World_H - d.y, a.x, mWorld.World_H
+					- a.y, mWorld.paintone);
+
+		}
+
+	}
+
+}

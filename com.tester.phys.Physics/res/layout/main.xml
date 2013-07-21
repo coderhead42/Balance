@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res/com.tester.phys"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="horizontal"
+    tools:ignore="UnusedNamespace" >
+
+    <com.tester.phys.PhysicsView
+        android:id="@+id/physics_world"
+        android:layout_width="0dip"
+        android:layout_height="fill_parent"
+        android:layout_weight="1" />
+
+    <ListView
+        android:id="@+id/listView1"
+        android:layout_width="65dp"
+        android:layout_height="wrap_content" >
+
+</ListView>
+
+        <LinearLayout
+            android:id="@+id/main1"
+            android:layout_width="20dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.08"
+            android:orientation="vertical" >
+
+            <Button
+                android:id="@+id/restart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="S" />
+
+            <Button
+                android:id="@+id/pause"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="P" />
+
+            <Button
+                android:id="@+id/resume"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="R" />
+        </LinearLayout>
+    
+
+</LinearLayout>
