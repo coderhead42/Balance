@@ -18,6 +18,17 @@ FEATURES
 * A menu of blocks from which user can choose a block from a given set of blocks of different shapes and dimensions.
 
 IMPLEMENTATION
-==================
+========================
 
-Platform 
+####Platform - Android
+####Languages - Java, XML
+####Modules - JBox2D
+
+* JBox2D (physics engine) is used for physics simulation
+* Multiplayer Mode is implemented over bluetooth api of android sdk
+
+IDEAS YET TO IMPLEMENT
+==========================
+
+* Advanced parameters for score calculation to be determined
+* Levels for varying difficulties (ex. changing fulcrum placement, adding obstacles etc.)
