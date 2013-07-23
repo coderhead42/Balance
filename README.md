@@ -14,8 +14,10 @@ The player needs to make the tower as high as he or she can before the tower fal
 FEATURES
 ==================
 
-A multiplayer mode, in which a player can compete with a second player. In this case, the player who fails to survive (i.e. whose last placed block leads to the falling of the pile) loses.
+* A multiplayer mode, in which a player can compete with a second player. In this case, the player who fails to survive (i.e. whose last placed block leads to the falling of the pile) loses.
+* A menu of blocks from which user can choose a block from a given set of blocks of different shapes and dimensions.
 
 IMPLEMENTATION
 ==================
 
+Platform 
